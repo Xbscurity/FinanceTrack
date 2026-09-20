@@ -19,17 +19,17 @@ namespace api.Controllers.User
     [Authorize(Roles = Roles.Admin)]
     [Route("api/users")]
     [ApiController]
-    public class UserManagementController : ControllerBase
+    public class AdminUserManagementController : ControllerBase
     {
         private readonly IUserManagementService _userManagementService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserManagementController"/> class.
+        /// Initializes a new instance of the <see cref="AdminUserManagementController"/> class.
         /// </summary>
         /// <param name="userManagementService">
         /// The service responsible for administrative user management operations.
         /// </param>
-        public UserManagementController(
+        public AdminUserManagementController(
             IUserManagementService userManagementService)
         {
             _userManagementService = userManagementService;

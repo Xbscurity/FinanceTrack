@@ -79,8 +79,8 @@ docker-compose up --build
 Once running:
 
 - API and Swagger — [http://localhost:5000/swagger](http://localhost:5000/swagger)
-- pgAdmin — [http://localhost:8081](http://localhost:8081)
-- Seq (logs) — [http://localhost:5341](http://localhost:5341)
+- pgAdmin — http://localhost:8081 (log in with PGADMIN_EMAIL / PGADMIN_PASSWORD from your .env)
+- Seq (logs) — http://localhost:5341 (log in as admin with SEQ_PASSWORD from your .env)
 
 ## Running Locally Without Docker
 

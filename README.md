@@ -5,7 +5,7 @@ A REST API for tracking personal finances: expense/income categories, transactio
 ![.NET](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)
-![CI](https://github.com/Xbscurity/WebApi/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Xbscurity/FinanceTrack/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Tech Stack
@@ -64,8 +64,8 @@ The easiest way to run the full stack — API, PostgreSQL, pgAdmin, and Seq for 
 **Requirements:** Docker and Docker Compose installed.
 
 ```bash
-git clone https://github.com/Xbscurity/WebApi.git
-cd WebApi
+git clone https://github.com/Xbscurity/FinanceTrack.git
+cd FinanceTrack
 cp .env.example .env
 cp api/appsettings.example.json api/appsettings.json
 ```
@@ -87,8 +87,8 @@ Once running:
 **Requirements:** .NET SDK 10, a local or remote PostgreSQL instance.
 
 ```bash
-git clone https://github.com/Xbscurity/WebApi.git
-cd WebApi/api
+git clone https://github.com/Xbscurity/FinanceTrack.git
+cd FinanceTrack/api
 cp appsettings.example.json appsettings.Development.json
 ```
 
@@ -135,14 +135,14 @@ api.Tests.Unit/          — unit tests
 api.Tests.Integration/   — integration tests
 ```
 
-## Notable Engineering Decisions
+## Engineering Decisions
 
-A few deliberate trade-offs, documented rather than left unexplained:
+The following decisions are intentional:
 
-- **No CORS configuration** — the API has no accompanying frontend; CORS is a browser-only concern with no current consumer. Wiring it up (with attention to the `HttpOnly` refresh-token cookie and its `SameSite` setting) would be the first step if a frontend were added.
-- **No HTTPS redirection in application code** — locally, the project runs over HTTP for development convenience; in a real deployment, TLS termination is expected to happen at the reverse proxy / PaaS edge layer rather than in the application itself.
-- **Account lockout accepts a theoretical DoS trade-off** — an attacker who knows a victim's email can deliberately trigger lockouts with wrong passwords. This is an accepted trade-off for this project's scope rather than an oversight (a production system would typically add CAPTCHA or progressive delays on top).
-- **`CancellationToken` is not yet threaded through the request pipeline** — controller actions don't accept and forward a `CancellationToken` down through services and repositories to EF Core calls, so a query keeps running to completion even if the client disconnects mid-request. Known gap, deprioritized for this project's scope: adding it touches nearly every method across all three layers, plus the corresponding Moq setups across the test suite.
+- **CORS is not configured.** The API currently has no browser-based frontend. CORS can be added when a frontend client is introduced.
+- **HTTPS redirection** is handled outside the application. Local development uses HTTP; production deployments are expected to terminate TLS at a reverse proxy or hosting platform.
+- **Account lockout is enabled.** Accounts are locked after five failed attempts within 15 minutes. This improves protection against password attacks, with the usual trade-off that an attacker who knows an email address could intentionally trigger a lockout.
+- **Cancellation tokens** are not currently propagated through the application layers. This is a known improvement planned for a future iteration.
 
 
 ## License

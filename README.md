@@ -141,7 +141,6 @@ The following decisions are intentional:
 
 - **CORS is not configured.** The API currently has no browser-based frontend. CORS can be added when a frontend client is introduced.
 - **HTTPS redirection** is handled outside the application. Local development uses HTTP; production deployments are expected to terminate TLS at a reverse proxy or hosting platform.
-- **Account lockout is enabled.** Accounts are locked after five failed attempts within 15 minutes. This improves protection against password attacks, with the usual trade-off that an attacker who knows an email address could intentionally trigger a lockout.
 - **Cancellation tokens** are not currently propagated through the application layers. This is a known improvement planned for a future iteration.
 
 

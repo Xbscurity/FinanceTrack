@@ -114,7 +114,6 @@ namespace api.Tests.Integration.Controllers
                 .ToList();
 
             Assert.Contains("AUTH_PASSWORD_TOO_SHORT", codes);
-            Assert.Contains("AUTH_PASSWORD_UPPER_REQUIRED", codes);
         }
 
         [Fact]

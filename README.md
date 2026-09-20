@@ -142,6 +142,8 @@ A few deliberate trade-offs, documented rather than left unexplained:
 - **No CORS configuration** — the API has no accompanying frontend; CORS is a browser-only concern with no current consumer. Wiring it up (with attention to the `HttpOnly` refresh-token cookie and its `SameSite` setting) would be the first step if a frontend were added.
 - **No HTTPS redirection in application code** — locally, the project runs over HTTP for development convenience; in a real deployment, TLS termination is expected to happen at the reverse proxy / PaaS edge layer rather than in the application itself.
 - **Account lockout accepts a theoretical DoS trade-off** — an attacker who knows a victim's email can deliberately trigger lockouts with wrong passwords. This is an accepted trade-off for this project's scope rather than an oversight (a production system would typically add CAPTCHA or progressive delays on top).
+- **`CancellationToken` is not yet threaded through the request pipeline** — controller actions don't accept and forward a `CancellationToken` down through services and repositories to EF Core calls, so a query keeps running to completion even if the client disconnects mid-request. Known gap, deprioritized for this project's scope: adding it touches nearly every method across all three layers, plus the corresponding Moq setups across the test suite.
+
 
 ## License
 

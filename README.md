@@ -32,6 +32,7 @@ A REST API for tracking personal finances: expense/income categories, transactio
 - User management and bans via a custom `IAuthorizationRequirement` that checks ban status on every request
 - Resource-based authorization — users can only access their own categories/transactions, not just role checks
 - Refresh tokens are single-use with rotation and automatic reuse detection: a reused (stolen) refresh token revokes the entire token family
+- A background service purges expired refresh tokens from the database hourly, so the table doesn't grow unbounded
 - JWT signing algorithm explicitly restricted to `HMACSHA512` to prevent algorithm-confusion attacks
 - Account lockout (5 failed attempts / 15 min) on login and password change, plus rate limiting — a global limit on all requests and a stricter one for auth endpoints
 - A single, consistent error format via a global exception handler and `ErrorOr`

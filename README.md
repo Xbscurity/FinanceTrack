@@ -112,7 +112,6 @@ The project includes:
 
 - **Unit tests** — services, specifications, custom validation attributes
 - **Integration tests** — controllers and authorization via `WebApplicationFactory`, using a real PostgreSQL instance via Testcontainers
-- **Architecture tests** — enforce that the codebase's structure doesn't drift from the intended rules
 
 The CI pipeline (GitHub Actions) automatically builds and runs all tests on every push and pull request to `main`.
 
